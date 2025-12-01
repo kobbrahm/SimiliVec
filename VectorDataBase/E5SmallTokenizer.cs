@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
-
+/// <summary>
+/// Tokenizer for E5-Small-V2 model
+/// </summary>
 public class E5SmallTokenizer
 {
     private readonly BertTokenizer _tokenizer;
@@ -24,7 +26,11 @@ public class E5SmallTokenizer
         });
     }
 
-    //Encode input text to token IDs
+    /// <summary>
+    /// Encode input text to token IDs, token type IDs, and attention mask
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
     public (long[] inputIds, long[] TokenTypeIds, long[] AttentionMask) Encode(string text)
     {
         IReadOnlyList<int> tokenIds = _tokenizer.EncodeToIds(text, considerPreTokenization: true, considerNormalization: true);
