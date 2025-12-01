@@ -9,13 +9,21 @@ internal class Program
         try
         {
             var embeddingModel = new EmbeddingModel();
-            string sampleInputText = "When it rains it really poors"; // Example token IDs
-            //Console.WriteLine("Input tokens count: " + sampleInputIds.Length);
-            float[] embeddings = embeddingModel.GetEmbeddings(sampleInputText);
-
-            Console.WriteLine("Embeddings generated successfully. Length: " + embeddings.Length);
-            System.Console.WriteLine("First 5 embedding values: " + string.Join(", ", embeddings[..5]));
+            var loadData = new DataLoader();
+            var dataIndex = new DataIndex();
             
+            string[] loadedData = loadData.LoadDataFromFile("data.txt");
+            foreach (var line in loadedData)
+            {
+                float[] embeddings = embeddingModel.GetEmbeddings(line);
+                dataIndex.Vectors.Add(new Vector(embeddings, line));
+            }
+            
+            foreach(var vector in dataIndex.Vectors)
+            {
+                Console.WriteLine($"Text: {vector.OriginalText}");
+                Console.WriteLine($"Embeddings: {string.Join(", ", vector.EmbeddedValues)}");
+            }
         }
         catch (Exception ex)
         {

@@ -183,3 +183,4 @@ C:\Users\olleb\VectorBaseProject\VectorDataBase\obj\Debug\net9.0\VectorDataBase.
 C:\Users\olleb\VectorBaseProject\VectorDataBase\obj\Debug\net9.0\VectorDataBase.genruntimeconfig.cache
 C:\Users\olleb\VectorBaseProject\VectorDataBase\obj\Debug\net9.0\ref\VectorDataBase.dll
 C:\Users\olleb\VectorBaseProject\VectorDataBase\bin\Debug\net9.0\Microsoft.ML.Tokenizers.dll
+C:\Users\olleb\VectorBaseProject\VectorDataBase\obj\Debug\net9.0\VectorDataBase.sourcelink.json
