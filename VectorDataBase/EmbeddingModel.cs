@@ -38,7 +38,7 @@ public class OutputData
 /// <summary>
 /// Class to generate embeddings using E5-Small-V2 ONNX model
 /// </summary>
-public class EmbeddingModel
+public class EmbeddingModel : IEmbeddingModel
 {
     private readonly PredictionEngine<InputData, OutputData> _predictionEngine;
     private readonly E5SmallTokenizer _tokenizer;
