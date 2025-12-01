@@ -108,10 +108,8 @@ public class DataIndex
         for (int level = Math.Min(newNode.level, MaxLevel); level >= 0; level--)
         {
             List<int> candidates = SearchLayer(newNode.Vector, currentEntryId, level, EfConstruction);
-            System.Console.WriteLine($"[Insert] Level {level}: Found {candidates.Count} candidates from entry point {currentEntryId}");
             //Select neighbors to connect using heuristic
             List<int> neigborsToConnect = SelectNeighbors(newNode.Vector, candidates, MaxNeighbours);
-            System.Console.WriteLine($"[Insert] Level {level}: Selected {neigborsToConnect.Count} neighbors to connect");
             //Establish connections to new node
             newNode.Neighbors[level].AddRange(neigborsToConnect);
 

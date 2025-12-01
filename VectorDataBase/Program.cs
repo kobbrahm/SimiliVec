@@ -34,8 +34,16 @@ internal class Program
     }
     private static void Main(string[] args)
     {
+        int id = 1;
+        var embeddingModel = new EmbeddingModel();
+        var loadData = new DataLoader();
+        string[] testData = loadData.LoadDataFromFile("data.txt");
         System.Console.WriteLine("Starting Vector Database...");
-        const int VectorDimension = 4;
+        
+        // Get vector dimension from embedding model
+        float[] sampleVector = embeddingModel.GetEmbeddings("sample");
+        int VectorDimension = sampleVector.Length;
+        
         const int MaxNeighbours = 4;
         const int EfConstruction = 20;
         const float InverseLogM = 1.0f / 1.5f;
@@ -47,10 +55,19 @@ internal class Program
             InverseLogM = InverseLogM
         };
 
-        Console.WriteLine("Inserting Dummy vectors... ");
-        for (int i = 0; i < 20; i++)
+        Console.WriteLine("Inserting test data.. ");
+        
+        foreach (var line in testData)
         {
-            CreateDataPoint(annIndex, VectorDimension, $"topic{i % 5} This is a sample text for vector {i}");
+            float[] vector = embeddingModel.GetEmbeddings(line);
+            HsnwNode node = new HsnwNode
+            {
+                id = id,
+                Vector = vector
+            };
+            annIndex.Insert(node, random);
+            PayloadStore.Add(id, new VectorRecord(id, new Dictionary<string, string> { { "topic", line.Split(' ')[0] } }, line));
+            id++;
         }
 
         // Debug: Print insertion info
@@ -72,19 +89,16 @@ internal class Program
         }
 
         Console.WriteLine("Defining query vector... ");
-        float[] baseVector = annIndex.Nodes[1].Vector;
-        float[] queryVector = new float[VectorDimension];
-
-        for(int i = 0; i < VectorDimension; i++)
-        {
-            queryVector[i] = baseVector[i] + (float)(random.NextDouble() * 0.001);
-        }
+        // Use embedding model to generate query vector from text
+        string queryText = "neural network";
+        float[] queryVector = embeddingModel.GetEmbeddings(queryText);
+        
         const int K = 5;
         const int EfSearch = 50;
 
         List<int> resultIds = annIndex.FindNearestNeighbors(queryVector, K, EfSearch);
 
-        Console.WriteLine($"\n--- Search Results (Top {K}) ---");
+        Console.WriteLine($"\n--- Search Results (Top {K}) for '{queryText}' ---");
         Console.WriteLine($"Query entry point: {annIndex.EntryPointId}, Max Level: {annIndex.MaxLevel}");
         
         if (resultIds.Count == 0)
@@ -98,14 +112,14 @@ internal class Program
         
         for (int i = 0; i < resultIds.Count; i++)
         {
-            int id = resultIds[i];
-            VectorRecord record = PayloadStore[id];
-            float[] resultVector = annIndex.Nodes[id].Vector;
+            int resultId = resultIds[i];
+            VectorRecord record = PayloadStore[resultId];
+            float[] resultVector = annIndex.Nodes[resultId].Vector;
             
             // Calculate final similarity for display
             float similarity = DataIndex.CosineSimilarity(queryVector, resultVector); 
             
-            Console.WriteLine($"{i + 1,-4} | {id,-2} | {similarity:F4} | {record.OriginalText}");
+            Console.WriteLine($"{i + 1,-4} | {resultId,-2} | {similarity:F4} | {record.OriginalText}");
         }
         
         // Expected result: ID 1 should be the closest or one of the top results.
