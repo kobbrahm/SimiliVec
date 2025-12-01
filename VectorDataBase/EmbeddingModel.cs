@@ -7,7 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-
+/// <summary>
+/// Input data schema for the ONNX model
+/// </summary>
 public class InputData
 {
     [ColumnName("input_ids")]
@@ -23,6 +25,9 @@ public class InputData
     public long[] AttentionMask { get; set; } = Array.Empty<long>();
 }
 
+/// <summary>
+/// Output data schema for the ONNX model
+/// </summary>
 public class OutputData
 {
     [ColumnName("last_hidden_state")]
@@ -30,7 +35,9 @@ public class OutputData
     public float[] Output { get; set; } = Array.Empty<float>();
 }
 
-
+/// <summary>
+/// Class to generate embeddings using E5-Small-V2 ONNX model
+/// </summary>
 public class EmbeddingModel
 {
     private readonly PredictionEngine<InputData, OutputData> _predictionEngine;
