@@ -14,7 +14,12 @@ public class DataIndex
     public int MaxNeighbours { get; init; } //max number of neighbors per node
     public int EfConstruction { get; init; } //size of candidate list during construction
     public float InverseLogM { get; init; } //Controls the probability of a node being assigned to higher levels
-
+    
+    /// <summary>
+    /// Insert a new node into the HSNW index
+    /// </summary>
+    /// <param name="newNode"></param>
+    /// <param name="random"></param>
     public void Insert(HsnwNode newNode, Random random)
     {
         if (Nodes.Count == 0)
@@ -36,8 +41,11 @@ public class DataIndex
         // Update Global State
         UpdateMaxState(newNode);
     }
-    
 
+    /// <summary>
+    /// Initialize the first node in the index
+    /// </summary>
+    /// <param name="newNode"></param>
     private void InitializeFirstNode(HsnwNode newNode)
     {
         newNode.level = 0;
@@ -48,6 +56,12 @@ public class DataIndex
         MaxLevel = 0;
     }
 
+    /// <summary>
+    /// Initialize new node: assign level and prepare neighbor lists
+    /// </summary>
+    /// <param name="newNode"></param>
+    /// <param name="random"></param>
+    /// <returns></returns>
     private int InitializeNewNode(HsnwNode newNode, Random random)
     {
         // Calculate and assign level
@@ -64,6 +78,13 @@ public class DataIndex
         return newNodeLevel;
     }
 
+    /// <summary>
+    /// Search from the top layers down to the new node's level to find the closest entry point
+    /// </summary>
+    /// <param name="newNode"></param>
+    /// <param name="newNodeLevel"></param>
+    /// <param name="currentEntryId"></param>
+    /// <returns></returns>
     private int SearchTopLayers(HsnwNode newNode, int newNodeLevel, int currentEntryId)
     {
         // Search from MaxLevel down to newNodeLevel + 1
@@ -83,6 +104,12 @@ public class DataIndex
         return currentEntryId;
     }
 
+    /// <summary>
+    /// Connect the new node to neighbors in each layer down to level 0
+    /// </summary>
+    /// <param name="newNode"></param>
+    /// <param name="newNodeLevel"></param>
+    /// <param name="currentEntryId"></param>
     private void ConnectLayers(HsnwNode newNode, int newNodeLevel, int currentEntryId)
     {
         // Connect from min(newNodeLevel, MaxLevel) down to 0
@@ -117,6 +144,10 @@ public class DataIndex
         }
     }
 
+    /// <summary>
+    /// Update global index state if the new node has the highest level
+    /// </summary>
+    /// <param name="newNode"></param>
     private void UpdateMaxState(HsnwNode newNode)
     {
         if (newNode.level > MaxLevel)
@@ -126,7 +157,13 @@ public class DataIndex
         }
     }
     
-    
+    /// <summary>
+    /// Find nearest neighbors for a given query vector
+    /// </summary>
+    /// <param name="queryVector"></param>
+    /// <param name="k"></param>
+    /// <param name="efSearch"></param>
+    /// <returns></returns>
     public List<int> FindNearestNeighbors(float[] queryVector, int k, int? efSearch = null)
     {
         if (Nodes.Count == 0)
@@ -152,6 +189,13 @@ public class DataIndex
         return finalCandidates.Take(k).ToList();
     }
     
+    /// <summary>
+    /// Select neighbors ensuring diversity using heuristic
+    /// </summary>
+    /// <param name="queryVector"></param>
+    /// <param name="candidates"></param>
+    /// <param name="maxConnections"></param>
+    /// <returns></returns>
     public List<int> SelectNeighbors(float[] queryVector, List<int> candidates, int maxConnections)
     {
         //Sort candidates by distance to query vector
@@ -211,6 +255,11 @@ public class DataIndex
         return selectedNeighbors;
     }
 
+    /// <summary>
+    /// Shrink connections of a node to maintain max neighbors using selection heuristic
+    /// </summary>
+    /// <param name="nodeId"></param>
+    /// <param name="layer"></param>
     public void ShrinkConnections(int nodeId, int layer)
     {
         HsnwNode node = Nodes[nodeId];
