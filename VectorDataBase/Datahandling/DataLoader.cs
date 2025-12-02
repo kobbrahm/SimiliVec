@@ -5,7 +5,7 @@ using System.IO;
 /// <summary>
 /// Class to load data from a text file
 /// </summary>
-public class DataLoader
+public class DataLoader : IDataLoader
 {
     public string[] LoadDataFromFile(string filePath)
     {
