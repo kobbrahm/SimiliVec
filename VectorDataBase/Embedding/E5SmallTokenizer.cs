@@ -38,7 +38,6 @@ public class E5SmallTokenizer
         //Convert list of int to long[] as required by the model
         long[] inputIds = tokenIds.Select(id => (long)id).ToArray();
         int Length = inputIds.Length;
-
         long[] tokenTypeIds = new long[Length];
         long[] attentionMask = Enumerable.Repeat(1L, Length).ToArray();
 

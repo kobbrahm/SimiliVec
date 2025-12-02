@@ -53,7 +53,7 @@ internal class Program
         Console.WriteLine($"- Entry point id: {annIndex.EntryPointId}");
 
         // Prepare and run a sample query
-        string queryText = "medical";
+        string queryText = "Diabetes";
         Console.WriteLine($"\nQuery: '{queryText}' (top 5 results)\n");
         float[] queryVector = embeddingModel.GetEmbeddings(queryText);
 
