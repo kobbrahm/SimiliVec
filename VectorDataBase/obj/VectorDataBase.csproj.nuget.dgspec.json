@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\olleb\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj": {}
+    "C:\\Users\\olleb\\VscodeProj\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\olleb\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj": {
+    "C:\\Users\\olleb\\VscodeProj\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\olleb\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj",
+        "projectUniqueName": "C:\\Users\\olleb\\VscodeProj\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj",
         "projectName": "VectorDataBase",
-        "projectPath": "C:\\Users\\olleb\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj",
+        "projectPath": "C:\\Users\\olleb\\VscodeProj\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj",
         "packagesPath": "C:\\Users\\olleb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\olleb\\VectorBaseProject\\VectorDataBase\\obj\\",
+        "outputPath": "C:\\Users\\olleb\\VscodeProj\\VectorBaseProject\\VectorDataBase\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\olleb\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
