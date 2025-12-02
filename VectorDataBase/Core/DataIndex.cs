@@ -5,7 +5,7 @@ using System.Linq;
 /// <summary>
 /// Class to hold indexed vectors, now relying on HSNWUtils for distance and level calculation.
 /// </summary>
-public class DataIndex
+public class DataIndex : IDataIndex
 {
     public Dictionary<int, HsnwNode> Nodes { get; set; } = new Dictionary<int, HsnwNode>();
 
