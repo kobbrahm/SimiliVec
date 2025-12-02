@@ -90,7 +90,7 @@ internal class Program
 
         Console.WriteLine("Defining query vector... ");
         // Use embedding model to generate query vector from text
-        string queryText = "neural network";
+        string queryText = "medical";
         float[] queryVector = embeddingModel.GetEmbeddings(queryText);
         
         const int K = 5;
