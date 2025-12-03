@@ -26,6 +26,10 @@ public class VectorService
         _dataLoader = dataLoader;
     }
 
+    /// <summary>
+    /// Index documents from a text file
+    /// </summary>
+    /// <returns></returns>
     public void IndexDocument()
     {
         string[] loadData = _dataLoader.LoadDataFromFile("Data.txt");
@@ -39,6 +43,12 @@ public class VectorService
         }
     }
 
+    /// <summary>
+    /// Search for nearest neighbors
+    /// </summary>
+    /// <param name="query"></param>
+    /// <param name="k"></param>
+    /// <returns></returns>
     public List<VectorRecord> Search(string query, int k)
     {
         float[] queryVector = _embeddingModel.GetEmbeddings(query);
@@ -56,6 +66,12 @@ public class VectorService
         return results;
     }
 
+    /// <summary>
+    /// Get distances for search results
+    /// </summary>
+    /// <param name="query"></param>
+    /// <param name="records"></param>
+    /// <returns></returns>
     public Dictionary<float, VectorRecord> GetDistances(string query, List<VectorRecord> records)
     {
         float[] queryVector = _embeddingModel.GetEmbeddings(query);
