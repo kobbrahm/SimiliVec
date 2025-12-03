@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "y2wKpoqoeLM=",
+  "dgSpecHash": "OKZkJ5JRfIU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\olleb\\VscodeProj\\VectorBaseProject\\VectorDataBase\\VectorDataBase.csproj",
+  "projectFilePath": "C:\\Users\\olleb\\repos\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olleb\\.nuget\\packages\\google.protobuf\\3.30.2\\google.protobuf.3.30.2.nupkg.sha512",
     "C:\\Users\\olleb\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\9.0.4\\microsoft.bcl.asyncinterfaces.9.0.4.nupkg.sha512",
+    "C:\\Users\\olleb\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.0\\microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+    "C:\\Users\\olleb\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\olleb\\.nuget\\packages\\microsoft.ml\\5.0.0\\microsoft.ml.5.0.0.nupkg.sha512",
     "C:\\Users\\olleb\\.nuget\\packages\\microsoft.ml.cpumath\\5.0.0\\microsoft.ml.cpumath.5.0.0.nupkg.sha512",
     "C:\\Users\\olleb\\.nuget\\packages\\microsoft.ml.dataview\\5.0.0\\microsoft.ml.dataview.5.0.0.nupkg.sha512",

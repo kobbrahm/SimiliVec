@@ -1,7 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO.Pipelines;
+using VectorDataBase.Services;
+using VectorDataBase.Datahandling;
 
+namespace VectorDataBase.App;
+
+/// <summary>
+/// Placeholder frontend used for quick manual testing.
+/// Replace this with the real frontend/integration later.
+/// </summary>
 public class FakeFrontEnd
 {
     private readonly VectorService _vectorService;

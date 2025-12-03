@@ -4,6 +4,11 @@ using System.Data;
 using System.Data.Common;
 using System.Threading;
 using Microsoft.VisualBasic;
+using VectorDataBase.Interfaces;
+using VectorDataBase.Core;
+using VectorDataBase.Datahandling;
+
+namespace VectorDataBase.Services;
 
 public class VectorService
 {
@@ -14,7 +19,7 @@ public class VectorService
     private static int _currentId = 0;
     private void nextId() => _currentId++;
     private readonly Random _random = new Random();
-    public VectorService(IDataIndex dataIndex, IEmbeddingModel embeddingModel, DataLoader dataLoader)
+    public VectorService(IDataIndex dataIndex, IEmbeddingModel embeddingModel, IDataLoader dataLoader)
     {
         _dataIndex = dataIndex;
         _embeddingModel = embeddingModel;

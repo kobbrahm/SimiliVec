@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using VectorDataBase.Core;
+
+namespace VectorDataBase.Interfaces;
 
 public interface IDataIndex
 {
