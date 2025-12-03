@@ -9,7 +9,7 @@
 
 ## Project Overview
 
-**SimiliVec** is a custom vector database designed to deeply explore the mechanics of high-performance similarity search. The project focuses on a native C# implementation of modern vector database components:
+**SimiliVec** is a custom vector database designed to explore the mechanics of high-performance similarity search. The project focuses on a native C# implementation of modern vector database components:
 
 * **Embedding Model:** Uses the **E5 transformer model** for generating high-quality vector representations.
 * **Indexing Structure:** Implements the **Hierarchical Navigable Small World (HNSW)** graph for efficient approximate nearest neighbor search.
