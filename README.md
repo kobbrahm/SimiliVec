@@ -1,4 +1,4 @@
-# 🚀 SimiliVec: Custom Vector Database
+# SimiliVec: Custom Vector Database
 
 [![Status Badge](https://img.shields.io/badge/Status-In%20Development-blue)](https://github.com/your-username/SimiliVec) 
 [![Language Badge](https://img.shields.io/badge/Built%20With-C%23-darkgreen)](https://docs.microsoft.com/en-us/dotnet/csharp/)
