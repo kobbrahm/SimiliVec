@@ -2,3 +2,4 @@
 *.safetensors filter=lfs diff=lfs merge=lfs -text
 *.h5 filter=lfs diff=lfs merge=lfs -text
 MLModels/e5-small-v2/** filter=lfs diff=lfs merge=lfs -text
+VectorDataBase/MLModels/e5-small-v2/* filter=lfs diff=lfs merge=lfs -text
