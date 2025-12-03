@@ -16,7 +16,7 @@ public class FakeFrontEnd
         Console.WriteLine("Indexing documents...");
         _vectorService.IndexDocument();
         Console.Write("Search: ");
-        int k = 5;
+        int k = 10;
         string? userSearch = Console.ReadLine();
         if(!string.IsNullOrEmpty(userSearch))
         {
