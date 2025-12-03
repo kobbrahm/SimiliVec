@@ -87,7 +87,7 @@ public class EmbeddingModel : IEmbeddingModel
     }
 
     /// <summary>
-    /// Mean Pooling to get sentence embedding from token embeddings
+    /// Mean-pools token embeddings into a single sentence embedding.
     /// </summary>
     /// <param name="tokenEmbeddings"></param>
     /// <param name="sequenceLength"></param>
