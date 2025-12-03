@@ -6,6 +6,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using VectorDataBase.Interfaces;
+
+namespace VectorDataBase.Embedding;
 
 /// <summary>
 /// Input data schema for the ONNX model

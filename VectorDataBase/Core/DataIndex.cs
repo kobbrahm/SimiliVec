@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using VectorDataBase.Interfaces;
+
+namespace VectorDataBase.Core;
 
 /// <summary>
 /// Class to hold indexed vectors, now relying on HSNWUtils for distance and level calculation.

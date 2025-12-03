@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+namespace VectorDataBase.Core;
+
 public class HsnwNode
 {
     public int id { get; set; }
