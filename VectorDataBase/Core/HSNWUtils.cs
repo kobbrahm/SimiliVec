@@ -1,6 +1,9 @@
 
 using System;
 using System.Collections.Generic;
+
+namespace VectorDataBase.Core;
+
 public static class HSNWUtils
 {
     /// <summary>

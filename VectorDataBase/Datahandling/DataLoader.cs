@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using VectorDataBase.Interfaces;
+
+namespace VectorDataBase.Datahandling;
 
 /// <summary>
 /// Class to load data from a text file
