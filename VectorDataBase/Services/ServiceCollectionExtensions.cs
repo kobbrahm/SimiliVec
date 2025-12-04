@@ -3,7 +3,7 @@ using VectorDataBase.Interfaces;
 using VectorDataBase.Datahandling;
 using VectorDataBase.Embedding;
 using VectorDataBase.Core;
-using VectorDataBase.App;
+using VectorDataBase;
 
 namespace VectorDataBase.Services;
 
@@ -30,7 +30,7 @@ public static class ServiceCollectionExtensions
 
         // FakeFrontEnd is a placeholder application component used for manual testing.
         // Keep registered as transient for now; replace or remove when integrating the real frontend.
-        services.AddTransient<FakeFrontEnd>();
+        //services.AddTransient<FakeFrontEnd>();
 
         return services;
     }
