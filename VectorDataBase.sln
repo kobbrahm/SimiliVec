@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorDataBase", "VectorDataBase\VectorDataBase.csproj", "{86AF8361-3BA9-4640-AEFE-B6230C74CB1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimiliVec.Api", "SimiliVec.Api\SimiliVec.Api.csproj", "{30F41693-B833-4C0C-A18F-A847BC887D93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimiliVec.MauiClient", "SimiliVec.MauiClient\SimiliVec.MauiClient.csproj", "{8D92206A-674C-4C7B-A807-27B615AABAD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,30 @@ Global
 		{86AF8361-3BA9-4640-AEFE-B6230C74CB1F}.Release|x64.Build.0 = Release|Any CPU
 		{86AF8361-3BA9-4640-AEFE-B6230C74CB1F}.Release|x86.ActiveCfg = Release|Any CPU
 		{86AF8361-3BA9-4640-AEFE-B6230C74CB1F}.Release|x86.Build.0 = Release|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Debug|x64.Build.0 = Debug|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Debug|x86.Build.0 = Debug|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Release|x64.ActiveCfg = Release|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Release|x64.Build.0 = Release|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Release|x86.ActiveCfg = Release|Any CPU
+		{30F41693-B833-4C0C-A18F-A847BC887D93}.Release|x86.Build.0 = Release|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Release|x64.Build.0 = Release|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D92206A-674C-4C7B-A807-27B615AABAD9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

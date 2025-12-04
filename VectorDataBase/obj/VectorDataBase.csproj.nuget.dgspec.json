@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\olleb\\repos\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj": {}
+    "C:\\Users\\olleb\\VscodeProj\\similivec\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\olleb\\repos\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj": {
+    "C:\\Users\\olleb\\VscodeProj\\similivec\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\olleb\\repos\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj",
+        "projectUniqueName": "C:\\Users\\olleb\\VscodeProj\\similivec\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj",
         "projectName": "VectorDataBase",
-        "projectPath": "C:\\Users\\olleb\\repos\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj",
+        "projectPath": "C:\\Users\\olleb\\VscodeProj\\similivec\\SimiliVec\\VectorDataBase\\VectorDataBase.csproj",
         "packagesPath": "C:\\Users\\olleb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\olleb\\repos\\SimiliVec\\VectorDataBase\\obj\\",
+        "outputPath": "C:\\Users\\olleb\\VscodeProj\\similivec\\SimiliVec\\VectorDataBase\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\olleb\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,7 +41,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -92,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

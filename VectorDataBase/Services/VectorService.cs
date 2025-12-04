@@ -7,6 +7,10 @@ using Microsoft.VisualBasic;
 using VectorDataBase.Interfaces;
 using VectorDataBase.Core;
 using VectorDataBase.Datahandling;
+using System.ComponentModel;
+using System.Reflection.Metadata;
+using VectorDataBase.Utils;
+using System.Runtime.CompilerServices;
 
 namespace VectorDataBase.Services;
 
@@ -14,8 +18,9 @@ public class VectorService
 {
     private readonly IDataIndex _dataIndex;
     private readonly IEmbeddingModel _embeddingModel;
-    private readonly IDataLoader _dataLoader;
-    private readonly Dictionary<int, VectorRecord> _payLoads = new Dictionary<int, VectorRecord>();
+    private readonly Dictionary<string, DocumentModel> _documentStorage = new Dictionary<string, DocumentModel>();
+    private readonly Dictionary<int, string> _indexToDocumentMap = new Dictionary<int, string>();
+
     private static int _currentId = 0;
     private void nextId() => _currentId++;
     private readonly Random _random = new Random();
@@ -23,65 +28,60 @@ public class VectorService
     {
         _dataIndex = dataIndex;
         _embeddingModel = embeddingModel;
-        _dataLoader = dataLoader;
     }
 
     /// <summary>
     /// Index documents from a text file
     /// </summary>
     /// <returns></returns>
-    public void IndexDocument()
+    public void IndexDocument(IEnumerable<DocumentModel> documents)
     {
-        string[] loadData = _dataLoader.LoadDataFromFile("Data.txt");
-        foreach(var line in loadData)
+        foreach(var document in documents)
         {
-            float[] vector = _embeddingModel.GetEmbeddings(line);
-            var node = new HsnwNode{id = _currentId, Vector = vector};
-            _dataIndex.Insert(node, _random);
-            _payLoads.Add(_currentId, new VectorRecord(_currentId, new Dictionary<string, string> { { "topic", line.Split(' ')[0] } }, line));
-            nextId();
+            if(!_documentStorage.ContainsKey(document.Id))
+            {
+                _documentStorage.Add(document.Id, document);
+            }
+            string[] chunks = SimpleTextChunker.Chunk(document.Content, maxChunkSize: 500);
+
+            foreach(var chunkText in chunks)
+            {
+                float[] vector = _embeddingModel.GetEmbeddings(chunkText);
+                var nodeId = _currentId;
+                var node = new HsnwNode { id = nodeId, Vector = vector };
+                _dataIndex.Insert(node, _random);
+                _indexToDocumentMap.Add(nodeId, document.Id);
+                nextId();
+            }
+
         }
+
+        
     }
 
-    /// <summary>
-    /// Search for nearest neighbors
-    /// </summary>
-    /// <param name="query"></param>
-    /// <param name="k"></param>
-    /// <returns></returns>
-    public List<VectorRecord> Search(string query, int k)
+    public IEnumerable<DocumentModel> Search(string query, int k)
     {
         float[] queryVector = _embeddingModel.GetEmbeddings(query);
-        List<int> neighborIds = _dataIndex.FindNearestNeighbors(queryVector, k);
+        var nearestVectorId = _dataIndex.FindNearestNeighbors(queryVector, k);
+        var foundDocumentIds = new HashSet<string>();
+        var results = new List<DocumentModel>();
 
-        List<VectorRecord> results = new List<VectorRecord>();
-        foreach(int id in neighborIds)
+        foreach(var vectorId in nearestVectorId)
         {
-            if (_payLoads.TryGetValue(id, out var record))
+            if(_indexToDocumentMap.TryGetValue(vectorId, out string? documentId))
             {
-
-                results.Add(record);
+                if(foundDocumentIds.Add(documentId))
+                {
+                    if(_documentStorage.TryGetValue(documentId, out DocumentModel? fullDocument))
+                    {
+                        var vector = _dataIndex.Nodes[vectorId].Vector;
+                        fullDocument.Distance = HSNWUtils.CosineSimilarity(queryVector, vector);
+                        results.Add(fullDocument);
+                    }
+                }
             }
         }
         return results;
     }
 
-    /// <summary>
-    /// Get distances for search results
-    /// </summary>
-    /// <param name="query"></param>
-    /// <param name="records"></param>
-    /// <returns></returns>
-    public Dictionary<float, VectorRecord> GetDistances(string query, List<VectorRecord> records)
-    {
-        float[] queryVector = _embeddingModel.GetEmbeddings(query);
-        Dictionary<float, VectorRecord> results = new Dictionary<float, VectorRecord>();
-        foreach(var record in records)
-        {
-            var vector = _dataIndex.Nodes[record.id].Vector;
-            var distance = HSNWUtils.CosineSimilarity(queryVector, vector);
-            results.Add(distance, record);
-        }
-        return results;
-    }
 }
