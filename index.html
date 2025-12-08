@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Database Frontend</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f4f9; }
+        h1, h2 { color: #333; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-top: 20px; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        textarea, input[type="text"], input[type="number"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+        .result-container { margin-top: 20px; padding: 15px; border: 1px solid #ddd; background-color: #e9ecef; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>SimiliVec API Frontend (http://localhost:5202)</h1>
+
+    <div class="container">
+        <h2>📥 Index Documents</h2>
+        <p>Enter documents in JSON format. Your `DocumentModel[]` array should contain objects with a `Content` property (assuming your model has one).<br>
+        **Example Format:**</p>
+        <pre>[
+    { "Content": "The sky is blue and the grass is green." },
+    { "Content": "A dog barks, and a cat meows." }
+]</pre>
+        <label for="indexInput">Documents (JSON Array):</label>
+        <textarea id="indexInput" rows="10">[
+    { "Content": "Software engineers write code and design systems." },
+    { "Content": "Project managers organize tasks and timelines." }
+]</textarea>
+        <button onclick="indexDocuments()">Index Documents</button>
+        <div id="indexResult" class="result-container">Awaiting Indexing...</div>
+    </div>
+
+    <div class="container">
+        <h2>🔎 Search Documents</h2>
+        <label for="searchInput">Search Query:</label>
+        <input type="text" id="searchInput" placeholder="e.g., Who writes the code?" value="who manages the tasks?">
+        
+        <label for="kInput">Top K Results (from query parameter):</label>
+        <input type="number" id="kInput" value="5" min="1">
+
+        <button onclick="searchDocuments()">Search</button>
+        <div id="searchResult" class="result-container">Awaiting Search...</div>
+    </div>
+
+    <script>
+        // API Base URL
+        const API_BASE_URL = 'http://localhost:5202/api/Vector';
+
+        /**
+         * Generic function to handle API calls
+         * @param {string} endpoint - The path (e.g., '/index' or '/search')
+         * @param {string} method - HTTP method (e.g., 'POST')
+         * @param {any} body - Request body object (or string for search)
+         * @returns {Promise<any>}
+         */
+        async function apiCall(endpoint, method, body, bodyType = 'json') {
+            const url = API_BASE_URL + endpoint;
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+
+            const config = {
+                method: method,
+                headers: headers,
+            };
+
+            // Handle different body types based on the controller methods
+            if (body !== undefined) {
+                if (bodyType === 'json') {
+                    config.body = JSON.stringify(body);
+                } else if (bodyType === 'text') {
+                    // For the Search endpoint which expects [FromBody] string query
+                    config.body = JSON.stringify(body); 
+                }
+            }
+
+            try {
+                const response = await fetch(url, config);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}. Message: ${errorText}`);
+                }
+
+                // Try to parse JSON for success responses (like search results)
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    return await response.json();
+                }
+                
+                // Return text for non-JSON responses (like the Ok string from indexing)
+                return await response.text(); 
+
+            } catch (error) {
+                console.error('API Call Failed:', error);
+                throw error;
+            }
+        }
+
+        /**
+         * Handles the Index Document POST request.
+         */
+        async function indexDocuments() {
+            const resultDiv = document.getElementById('indexResult');
+            resultDiv.textContent = 'Indexing...';
+            resultDiv.classList.remove('error');
+
+            const indexInput = document.getElementById('indexInput').value;
+
+            try {
+                // Documents must be a JSON array of objects
+                const documents = JSON.parse(indexInput);
+
+                // Assuming your DocumentModel has a Content property based on the example
+                // and the IndexDocument method expects DocumentModel[]
+                const responseText = await apiCall('/index', 'POST', documents, 'json');
+
+                resultDiv.textContent = `✅ Success: ${responseText}`;
+
+            } catch (error) {
+                // Handle parsing errors or network/API errors
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+                resultDiv.classList.add('error');
+            }
+        }
+
+        /**
+         * Handles the Search POST request.
+         */
+        async function searchDocuments() {
+            const resultDiv = document.getElementById('searchResult');
+            resultDiv.textContent = 'Searching...';
+            resultDiv.classList.remove('error');
+
+            const query = document.getElementById('searchInput').value;
+            const k = parseInt(document.getElementById('kInput').value, 10);
+            
+            // Check for valid inputs
+            if (!query.trim()) {
+                resultDiv.textContent = '❌ Error: Search query cannot be empty.';
+                resultDiv.classList.add('error');
+                return;
+            }
+            if (isNaN(k) || k < 1) {
+                resultDiv.textContent = '❌ Error: K must be a positive number.';
+                resultDiv.classList.add('error');
+                return;
+            }
+
+            try {
+                // The C# controller expects [FromBody] string query and [FromQuery] int k
+                // We pass the string query as the body, and K as a query parameter.
+                // The body is sent as a JSON string literal.
+                const results = await apiCall(`/search?k=${k}`, 'POST', query, 'text');
+
+                // results will be the JSON array returned by the controller
+                resultDiv.textContent = `✅ Search Results (Top ${k}):\n\n${JSON.stringify(results, null, 2)}`;
+
+            } catch (error) {
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+                resultDiv.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>
