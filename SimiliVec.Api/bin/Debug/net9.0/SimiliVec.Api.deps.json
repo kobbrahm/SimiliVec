@@ -43,27 +43,14 @@
           }
         }
       },
-      "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
-      "Microsoft.Extensions.DependencyInjection/8.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
-        }
-      },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {},
       "Microsoft.ML/5.0.0": {
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "9.0.4",
           "Microsoft.ML.CpuMath": "5.0.0",
           "Microsoft.ML.DataView": "5.0.0",
           "Newtonsoft.Json": "13.0.3",
-          "System.Buffers": "4.6.1",
           "System.CodeDom": "9.0.4",
-          "System.Collections.Immutable": "9.0.4",
-          "System.Memory": "4.6.3",
-          "System.Numerics.Tensors": "9.0.4",
-          "System.Reflection.Emit.Lightweight": "4.7.0",
-          "System.Runtime.CompilerServices.Unsafe": "6.1.2",
-          "System.Threading.Channels": "9.0.4"
+          "System.Numerics.Tensors": "9.0.4"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.Core.dll": {
@@ -171,12 +158,6 @@
         }
       },
       "Microsoft.ML.DataView/5.0.0": {
-        "dependencies": {
-          "System.Buffers": "4.6.1",
-          "System.Collections.Immutable": "9.0.4",
-          "System.Memory": "4.6.3",
-          "System.Runtime.CompilerServices.Unsafe": "6.1.2"
-        },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.DataView.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -273,7 +254,6 @@
       },
       "Microsoft.ML.OnnxRuntime.Managed/1.23.2": {
         "dependencies": {
-          "System.Memory": "4.6.3",
           "System.Numerics.Tensors": "9.0.4"
         },
         "runtime": {
@@ -290,14 +270,8 @@
           "Microsoft.ML": "5.0.0",
           "Microsoft.ML.OnnxRuntime.Managed": "1.23.2",
           "Newtonsoft.Json": "13.0.3",
-          "System.Buffers": "4.6.1",
           "System.CodeDom": "9.0.4",
-          "System.Collections.Immutable": "9.0.4",
-          "System.Memory": "4.6.3",
-          "System.Numerics.Tensors": "9.0.4",
-          "System.Reflection.Emit.Lightweight": "4.7.0",
-          "System.Runtime.CompilerServices.Unsafe": "6.1.2",
-          "System.Threading.Channels": "9.0.4"
+          "System.Numerics.Tensors": "9.0.4"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.OnnxTransformer.dll": {
@@ -335,7 +309,6 @@
       },
       "Swashbuckle.AspNetCore/6.5.0": {
         "dependencies": {
-          "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
           "Swashbuckle.AspNetCore.Swagger": "6.5.0",
           "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0",
           "Swashbuckle.AspNetCore.SwaggerUI": "6.5.0"
@@ -371,7 +344,6 @@
           }
         }
       },
-      "System.Buffers/4.6.1": {},
       "System.CodeDom/9.0.4": {
         "runtime": {
           "lib/net9.0/System.CodeDom.dll": {
@@ -380,8 +352,6 @@
           }
         }
       },
-      "System.Collections.Immutable/9.0.4": {},
-      "System.Memory/4.6.3": {},
       "System.Numerics.Tensors/9.0.4": {
         "runtime": {
           "lib/net9.0/System.Numerics.Tensors.dll": {
@@ -390,12 +360,8 @@
           }
         }
       },
-      "System.Reflection.Emit.Lightweight/4.7.0": {},
-      "System.Runtime.CompilerServices.Unsafe/6.1.2": {},
-      "System.Threading.Channels/9.0.4": {},
       "VectorDataBase/1.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "Microsoft.ML": "5.0.0",
           "Microsoft.ML.DataView": "5.0.0",
           "Microsoft.ML.OnnxRuntime": "1.23.2",
@@ -437,27 +403,6 @@
       "sha512": "sha512-9VGI5kxIvrNG2mqLQZnUR6y/3fcnygD8eNpHR+CqfbnIXvea6nehnYknDKQTxZVPMpzpNca+7DxLBmpdB3q0Bw==",
       "path": "microsoft.bcl.asyncinterfaces/9.0.4",
       "hashPath": "microsoft.bcl.asyncinterfaces.9.0.4.nupkg.sha512"
-    },
-    "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Ckb5EDBUNJdFWyajfXzUIMRkhf52fHZOQuuZg/oiu8y7zDCVwD0iHhew6MnThjHmevanpxL3f5ci2TtHQEN6bw==",
-      "path": "microsoft.extensions.apidescription.server/6.0.5",
-      "hashPath": "microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512"
-    },
-    "Microsoft.Extensions.DependencyInjection/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-V8S3bsm50ig6JSyrbcJJ8bW2b9QLGouz+G1miK3UTaOWmMtFwNNNzUf4AleyDWUmTrWMLNnFSLEQtxmxgNQnNQ==",
-      "path": "microsoft.extensions.dependencyinjection/8.0.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-cjWrLkJXK0rs4zofsK4bSdg+jhDLTaxrkXu4gS6Y7MAlCvRyNNgwY/lJi5RDlQOnSZweHqoyvgvbdvQsRIW+hg==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
     },
     "Microsoft.ML/5.0.0": {
       "type": "package",
@@ -550,13 +495,6 @@
       "path": "swashbuckle.aspnetcore.swaggerui/6.5.0",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
     },
-    "System.Buffers/4.6.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-N8GXpmiLMtljq7gwvyS+1QvKT/W2J8sNAvx+HVg4NGmsG/H+2k/y9QI23auLJRterrzCiDH+IWAw4V/GPwsMlw==",
-      "path": "system.buffers/4.6.1",
-      "hashPath": "system.buffers.4.6.1.nupkg.sha512"
-    },
     "System.CodeDom/9.0.4": {
       "type": "package",
       "serviceable": true,
@@ -564,47 +502,12 @@
       "path": "system.codedom/9.0.4",
       "hashPath": "system.codedom.9.0.4.nupkg.sha512"
     },
-    "System.Collections.Immutable/9.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-wfm2NgK22MmBe5qJjp52qzpkeDZKb4l9LbdubhZSehY1z4LS+lld6R+B+UQNb2AZRHu/QJlHxEUcRst5hIEejg==",
-      "path": "system.collections.immutable/9.0.4",
-      "hashPath": "system.collections.immutable.9.0.4.nupkg.sha512"
-    },
-    "System.Memory/4.6.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-qdcDOgnFZY40+Q9876JUHnlHu7bosOHX8XISRoH94fwk6hgaeQGSgfZd8srWRZNt5bV9ZW2TljcegDNxsf+96A==",
-      "path": "system.memory/4.6.3",
-      "hashPath": "system.memory.4.6.3.nupkg.sha512"
-    },
     "System.Numerics.Tensors/9.0.4": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-ynVvqELpMWGQJ1Y90rlAmuTiSQIkXD0W5AMj7pVpEjECmrcIJLexIBblgccerHFijayfcsl1KCbkk+Sg5cS9vQ==",
       "path": "system.numerics.tensors/9.0.4",
       "hashPath": "system.numerics.tensors.9.0.4.nupkg.sha512"
-    },
-    "System.Reflection.Emit.Lightweight/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-a4OLB4IITxAXJeV74MDx49Oq2+PsF6Sml54XAFv+2RyWwtDBcabzoxiiJRhdhx+gaohLh4hEGCLQyBozXoQPqA==",
-      "path": "system.reflection.emit.lightweight/4.7.0",
-      "hashPath": "system.reflection.emit.lightweight.4.7.0.nupkg.sha512"
-    },
-    "System.Runtime.CompilerServices.Unsafe/6.1.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-2hBr6zdbIBTDE3EhK7NSVNdX58uTK6iHW/P/Axmm9sl1xoGSLqDvMtpecn226TNwHByFokYwJmt/aQQNlO5CRw==",
-      "path": "system.runtime.compilerservices.unsafe/6.1.2",
-      "hashPath": "system.runtime.compilerservices.unsafe.6.1.2.nupkg.sha512"
-    },
-    "System.Threading.Channels/9.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-4qBn2H6/aXBpE/Pm3wY5yusY/pEvQz99NlWHrTUji0qCmOdbhhjaALcpmbfW2ksxlPM6i6S+QFLkpOQdyfeKYQ==",
-      "path": "system.threading.channels/9.0.4",
-      "hashPath": "system.threading.channels.9.0.4.nupkg.sha512"
     },
     "VectorDataBase/1.0.0": {
       "type": "project",
