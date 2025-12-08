@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Reflection.Metadata;
 using VectorDataBase.Utils;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace VectorDataBase.Services;
 
@@ -34,7 +35,7 @@ public class VectorService
     /// Index documents from a text file
     /// </summary>
     /// <returns></returns>
-    public void IndexDocument(IEnumerable<DocumentModel> documents)
+    public async Task IndexDocument(IEnumerable<DocumentModel> documents)
     {
         foreach(var document in documents)
         {
@@ -59,7 +60,7 @@ public class VectorService
         
     }
 
-    public IEnumerable<DocumentModel> Search(string query, int k)
+    public Task<IEnumerable<DocumentModel>> Search(string query, int k = 5)
     {
         float[] queryVector = _embeddingModel.GetEmbeddings(query);
         var nearestVectorId = _dataIndex.FindNearestNeighbors(queryVector, k);
@@ -81,7 +82,7 @@ public class VectorService
                 }
             }
         }
-        return results;
+        return Task.FromResult<IEnumerable<DocumentModel>>(results);
     }
 
 }

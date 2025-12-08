@@ -14,19 +14,19 @@ public class VectorController : ControllerBase
     }
     
     [HttpPost("index")]
-    public IActionResult IndexDocument([FromBody] DocumentModel[] documents)
+    public async Task<IActionResult> IndexDocument([FromBody] DocumentModel[] documents)
     {
         if(documents == null || documents.Length == 0)
         {
             return BadRequest("No documents provided for indexing.");
         }
 
-        _vectorService.IndexDocument(documents);
+       await _vectorService.IndexDocument(documents);
         return Ok($"Indexed {documents.Length} documents");
     }
 
     [HttpPost("search")]
-    public IActionResult Search([FromBody] string query, [FromQuery] int k = 5)
+    public async Task<IActionResult> Search([FromBody] string query, [FromQuery] int k = 5)
     {
         if(string.IsNullOrEmpty(query))
         {
