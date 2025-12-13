@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SimiliVec.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8169617b6dda359552e5851a305feafae848b65d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66fa1ab3233c01e0e098559be3b7c5e25da90ddf")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimiliVec.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimiliVec.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
