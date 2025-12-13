@@ -75,7 +75,7 @@
     "Id": "2e5e3797-55cd-47be-beca-05f04d898f2c",
     "Content": "The human brain contains approximately 86 billion neurons, making it one of the most complex organs in the known universe.",
     "MetaData": {},
-    "Distance": 0.7809896
+    "Distance": 0.79119855
   },
   {
     "Id": "06c27a86-714d-479f-aeb7-f6128ad493a8",
@@ -87,7 +87,7 @@
     "Id": "e9cac736-37a6-47fd-923b-1c59d8537243",
     "Content": "The Great Barrier Reef is the world\u0027s largest coral reef system, supporting thousands of marine species and ecosystems.",
     "MetaData": {},
-    "Distance": 0
+    "Distance": 0.7583051
   },
   {
     "Id": "2c4259d7-02cb-4344-9ac7-514384254538",
@@ -153,7 +153,7 @@
     "Id": "71d1642e-4f71-4657-a101-28ab074f1cfd",
     "Content": "Protein folding is a fundamental biological process that determines the structure and function of proteins in living organisms.",
     "MetaData": {},
-    "Distance": 0.7912436
+    "Distance": 0.76462185
   },
   {
     "Id": "8e41f1c4-2241-4d01-a9ac-84c22166714f",
@@ -195,7 +195,7 @@
     "Id": "8930e02a-1fb6-47ab-8788-9b183518e153",
     "Content": "Photography captures moments in time, preserving memories and telling stories through visual composition and lighting techniques.",
     "MetaData": {},
-    "Distance": 0
+    "Distance": 0.75300366
   },
   {
     "Id": "2a141eef-3daa-46a8-a2ab-69f7d3fe2d8c",
@@ -261,7 +261,7 @@
     "Id": "96ed4817-13c5-407b-a087-d16e798516df",
     "Content": "Marine biology studies ocean ecosystems, creatures, and the intricate relationships between different species and their habitats.",
     "MetaData": {},
-    "Distance": 0
+    "Distance": 0.76459336
   },
   {
     "Id": "51e9a2ad-4cc0-4bb2-b5a7-ce6d559daaff",
