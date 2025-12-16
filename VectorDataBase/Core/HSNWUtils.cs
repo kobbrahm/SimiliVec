@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VectorDataBase.Core;
 
-public static class HSNWUtils
+public static class HNSWUtils
 {
     /// <summary>
     /// Calculate cosine similarity between two vectors
