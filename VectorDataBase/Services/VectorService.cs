@@ -94,7 +94,7 @@ public class VectorService : IVectorService
                     if(_documentStorage.TryGetValue(documentId, out DocumentModel? fullDocument))
                     {
                         var vector = _dataIndex.Nodes[vectorId].Vector;
-                        fullDocument.Distance = HSNWUtils.CosineSimilarity(queryVector, vector);
+                        fullDocument.Distance = HNSWUtils.CosineSimilarity(queryVector, vector);
                         results.Add(fullDocument);
                         Console.WriteLine($"Search: Added document {documentId} with distance {fullDocument.Distance}");
                     }

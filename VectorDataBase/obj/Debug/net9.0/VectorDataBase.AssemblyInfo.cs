@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VectorDataBase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66fa1ab3233c01e0e098559be3b7c5e25da90ddf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15c5a15d50d142ed8bfde872b4817cad4ac7e6c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("VectorDataBase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VectorDataBase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
