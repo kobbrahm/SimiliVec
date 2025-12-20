@@ -24,6 +24,23 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Initialize and index documents on startup BEFORE starting the app
+Console.WriteLine("Pre-startup: About to index documents...");
+try
+{
+    var vectorService = app.Services.GetRequiredService<IVectorService>();
+    Console.WriteLine("Pre-startup: Got vector service");
+    var indexTask = vectorService.IndexDocument();
+    indexTask.Wait(); // Block and wait for indexing to complete
+    Console.WriteLine("Pre-startup: Documents indexed on startup successfully.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Pre-startup error indexing documents: {ex.Message}");
+    Console.WriteLine($"Stack trace: {ex.StackTrace}");
+}
+
 if(app.Environment.IsDevelopment())
 {
     app.UseSwagger();

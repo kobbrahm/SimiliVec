@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector DB Simple Frontend</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="number"], button {
+            padding: 10px;
+            margin: 5px 0 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            display: block;
+            width: 98%;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+            width: fit-content;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .results-container {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .result-item {
+            padding: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vector Database Interaction</h1>
+
+    <section class="card">
+        <h2>1. Index Documents</h2>
+        <p>This action triggers the document indexing process on the server.</p>
+        <button id="indexButton">Start Indexing</button>
+        <div id="indexStatus" class="status-message"></div>
+    </section>
+
+    <section class="card">
+        <h2>2. Search Documents</h2>
+        <form id="searchForm">
+            <label for="query">Search Query:</label>
+            <input type="text" id="query" placeholder="Enter your query here..." required>
+            
+            <label for="kValue">Number of Results (k):</label>
+            <input type="number" id="kValue" value="5" min="1" max="100">
+            
+            <button type="submit">Search</button>
+        </form>
+        
+        <h3>Search Results:</h3>
+        <div id="searchResults" class="results-container">
+            <p>Enter a query and press Search.</p>
+        </div>
+    </section>
+
+    <script>
+        // *** API URL based on your previous logs: http://localhost:5202 ***
+        const API_BASE_URL = 'http://localhost:5202/api/vector'; 
+
+        // --- Indexing Logic ---
+
+        document.getElementById('indexButton').addEventListener('click', async () => {
+            const statusDiv = document.getElementById('indexStatus');
+            statusDiv.textContent = 'Indexing in progress...';
+            statusDiv.className = 'status-message'; 
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/index`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const resultText = await response.text();
+
+                if (response.ok) {
+                    statusDiv.textContent = resultText.replace(/"/g, ''); 
+                    statusDiv.classList.add('success');
+                } else {
+                    statusDiv.textContent = `Error: ${resultText || response.statusText}`;
+                    statusDiv.classList.add('error');
+                }
+            } catch (error) {
+                statusDiv.textContent = `Network Error: ${error.message}. Check if your API is running and CORS is enabled.`;
+                statusDiv.classList.add('error');
+            }
+        });
+
+
+        // --- Search Logic ---
+
+        document.getElementById('searchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const queryInput = document.getElementById('query');
+            const kInput = document.getElementById('kValue');
+            const resultsDiv = document.getElementById('searchResults');
+            
+            const query = queryInput.value.trim();
+            const k = parseInt(kInput.value, 10) || 5;
+
+            if (!query) {
+                resultsDiv.innerHTML = '<p class="error">Search query cannot be empty.</p>';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<p>Searching...</p>';
+
+            try {
+                const url = `${API_BASE_URL}/search?k=${k}`;
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(query) 
+                });
+
+                if (response.ok) {
+                    const results = await response.json();
+                    displayResults(results, resultsDiv);
+                } else {
+                    const error = await response.text();
+                    resultsDiv.innerHTML = `<p class="error">Error: ${error || response.statusText}</p>`;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<p class="error">Network Error: ${error.message}</p>`;
+            }
+        });
+
+        // --- UPDATED displayResults function to handle non-array responses ---
+        function displayResults(results, container) {
+            let resultsArray = [];
+
+            // 1. Handle Null/Undefined/Empty Response
+            if (!results) {
+                container.innerHTML = '<p>No results found (API returned null/undefined).</p>';
+                return;
+            }
+
+            // 2. Normalize results into an array
+            if (Array.isArray(results)) {
+                resultsArray = results;
+            } else if (typeof results === 'object' && results !== null) {
+                // If it's a single object (which is likely causing the error), wrap it in an array.
+                resultsArray = [results];
+            } else {
+                // If it's another unexpected format (e.g., a simple string/number), handle as error.
+                container.innerHTML = '<p class="error">Error: Received unexpected data format from API.</p>';
+                return;
+            }
+
+            // 3. Check for empty array
+            if (resultsArray.length === 0) {
+                container.innerHTML = '<p>No results found.</p>';
+                return;
+            }
+
+            // 4. Proceed with mapping the now-guaranteed array
+            // DocumentModel has: Id, Content, MetaData, Distance
+            const html = resultsArray.map((result, index) => {
+                const content = result.content || result.Content || 'Document content not available';
+                const distance = result.distance !== undefined ? result.distance.toFixed(4) : 'N/A';
+                const id = result.id || result.Id || 'N/A';
+                
+                return `
+                    <div class="result-item">
+                        <strong>Result ${index + 1} (ID: ${id})</strong> (Distance: ${distance})
+                        <p>${content}</p>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

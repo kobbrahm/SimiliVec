@@ -26,7 +26,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDataLoader, DataLoader>();
 
         // VectorService holds state and coordinates index/embeddings
-        services.AddSingleton<VectorService>();
+        services.AddSingleton<IVectorService, VectorService>();
 
         // FakeFrontEnd is a placeholder application component used for manual testing.
         // Keep registered as transient for now; replace or remove when integrating the real frontend.

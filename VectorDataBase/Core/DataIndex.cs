@@ -68,7 +68,7 @@ public class DataIndex : IDataIndex
     private int InitializeNewNode(HsnwNode newNode, Random random)
     {
         // Calculate and assign level
-        int newNodeLevel = HSNWUtils.GetRandomLevel(InverseLogM, random);
+        int newNodeLevel = HNSWUtils.GetRandomLevel(InverseLogM, random);
         newNode.level = newNodeLevel;
 
         // Initialize neighbor lists for each level up to the new node's level
@@ -205,7 +205,7 @@ public class DataIndex : IDataIndex
         var sortedCandidates = candidates.Select(id => new
         {
             Id = id,
-            Distance = 1.0f - HSNWUtils.CosineSimilarity(queryVector, Nodes[id].Vector)
+            Distance = 1.0f - HNSWUtils.CosineSimilarity(queryVector, Nodes[id].Vector)
         })
         .OrderBy(x => x.Distance)
         .ToList();
@@ -226,7 +226,7 @@ public class DataIndex : IDataIndex
             //Check diversity against already selected neighbors
             foreach (int selectedId in selectedNeighbors)
             {
-                float distanceBetween = 1.0f - HSNWUtils.CosineSimilarity(Nodes[candidate.Id].Vector, Nodes[selectedId].Vector);
+                float distanceBetween = 1.0f - HNSWUtils.CosineSimilarity(Nodes[candidate.Id].Vector, Nodes[selectedId].Vector);
                 if (distanceBetween < candidate.Distance)
                 {
                     isDiverse = false;
@@ -319,7 +319,7 @@ public class DataIndex : IDataIndex
         //Initialize with entry point
         HsnwNode entryNode = Nodes[entryId];
         //Convert cosine similarity to distance
-        float entryDistance = 1.0f - HSNWUtils.CosineSimilarity(queryVector, entryNode.Vector);
+        float entryDistance = 1.0f - HNSWUtils.CosineSimilarity(queryVector, entryNode.Vector);
 
         //Add to candidate queue and visited set
         candidateQueue.Add(entryDistance, new List<int> { entryId });
@@ -366,7 +366,7 @@ public class DataIndex : IDataIndex
                     {
                         //Calculate distance to neighbor
                         HsnwNode neighborNode = Nodes[neighborId];
-                        float neighborDistance = 1.0f - HSNWUtils.CosineSimilarity(queryVector, neighborNode.Vector);
+                        float neighborDistance = 1.0f - HNSWUtils.CosineSimilarity(queryVector, neighborNode.Vector);
 
                         //Add neighbor to candidate queue if it qualifies
                         if (candidateQueue.Count < ef || neighborDistance < worstDistanceInResults)
