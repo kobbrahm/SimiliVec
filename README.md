@@ -21,3 +21,48 @@
 *  High-performance **HNSW** index implementation.
 *  Native integration with the **E5** embedding model.
 *  Simple API for vector insertion and similarity search.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- .NET 9.0 SDK or later
+- PowerShell (Windows) or Bash (Linux/Mac)
+
+### Setup Instructions
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd SimiliVec
+   ```
+
+2. **Download the E5 model and tokenizer files:**
+
+   **On Windows (PowerShell):**
+   ```powershell
+   .\setup-models.ps1
+   ```
+
+   **On Linux/Mac (Bash):**
+   ```bash
+   chmod +x setup-models.sh
+   ./setup-models.sh
+   ```
+
+   This script will download:
+   - E5-Small-V2 model (133 MB)
+   - Tokenizer files (vocab.txt, tokenizer.json, tokenizer_config.json)
+
+3. **Build and run the project:**
+   ```bash
+   cd SimiliVec.Api
+   dotnet build
+   dotnet run
+   ```
+
+4. **Access the API:**
+   - Swagger UI: http://localhost:5202/swagger
+   - API Endpoint: http://localhost:5202/api
