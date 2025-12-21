@@ -25,9 +25,21 @@ public class DataLoader : IDataLoader
 
     public DataLoader()
     {
-        _dataDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        //Appdata folder
+        _dataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        _dataDirectory = Path.Combine(_dataDirectory, "SimiliVec");
+        if(!Directory.Exists(_dataDirectory))
+        {
+            Directory.CreateDirectory(_dataDirectory);
+        }
         _dataFileName = "documents.json";
         _fullFilePath = Path.Combine(_dataDirectory, _dataFileName);
+        if(!File.Exists(_fullFilePath))
+        {
+            File.Create(_fullFilePath).Close();
+            string defaultJstring = "[{}]";
+            File.WriteAllText(_fullFilePath,defaultJstring);
+        }
     }
 
     /// <summary>
