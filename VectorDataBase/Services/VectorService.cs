@@ -10,17 +10,20 @@ using System.Reflection.Metadata;
 using VectorDataBase.Utils;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace VectorDataBase.Services;
 
 public class VectorService : IVectorService
 {
-    private readonly IDataIndex _dataIndex;
+    private IDataIndex _dataIndex;
     private readonly IEmbeddingModel _embeddingModel;
     private readonly Dictionary<string, DocumentModel> _documentStorage = new Dictionary<string, DocumentModel>();
     private readonly Dictionary<int, string> _indexToDocumentMap = new Dictionary<int, string>();
     private readonly IEnumerable<DocumentModel> _documents;
     private int _currentId = 0;
+    private readonly string dataFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimiliVec", "documents.json");
     private int NextId() => Interlocked.Increment(ref _currentId);
     private readonly Random _random = new Random();
     private readonly IDataLoader dataLoader = new DataLoader();
@@ -30,8 +33,19 @@ public class VectorService : IVectorService
         _dataIndex = dataIndex;
         _embeddingModel = embeddingModel;
         Console.WriteLine("VectorService: Loading documents...");
-        _documents = dataLoader.LoadAllDocuments();
+        _documents = Persistence.LoadData<IEnumerable<DocumentModel>>(Path.GetDirectoryName(dataFilePath) ?? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "documents.json") ?? new List<DocumentModel>();
         Console.WriteLine($"VectorService: Constructor complete. Loaded {_documents.Count()} documents");
+        string persistencePath = Path.GetDirectoryName(dataFilePath) ?? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        _dataIndex.Nodes = Persistence.LoadData<Dictionary<int, HsnwNode>>(persistencePath, "hsnw_nodes.json") ?? new Dictionary<int, HsnwNode>();
+        if(_dataIndex.Nodes.Any())
+        {
+            Console.WriteLine($"VectorService: Loaded {_dataIndex.Nodes.Count} nodes from storage");
+            _currentId = _dataIndex.Nodes.Keys.Max() + 1;
+        }
+        else
+        {
+            Console.WriteLine("VectorService: No nodes found in storage");
+        }
     }
 
     /// <summary>
@@ -64,6 +78,9 @@ public class VectorService : IVectorService
             }
         }
         Console.WriteLine($"IndexDocument: Indexing complete. Total {totalChunks} chunks indexed");
+        Console.WriteLine("IndexDocument: Saving index and mappings to persistence");
+        string persistencePath = Path.GetDirectoryName(dataFilePath) ?? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        Persistence.SaveData(persistencePath, "hsnw_nodes.json", _dataIndex.Nodes);
     }
 
     public IEnumerable<DocumentModel> GetAllDocuments()
@@ -111,8 +128,20 @@ public class VectorService : IVectorService
         }
         
         Console.WriteLine($"Search: Returning {results.Count} results");
-        dataLoader.SaveDataToFile(_documents);
+        UpdatedSaveData();
         return Task.FromResult<IEnumerable<DocumentModel>>(results);
+    }
+    public Task<Action> ExitProgram()
+    {
+        UpdatedSaveData();
+        Environment.Exit(0);
+        return Task.FromResult<Action>(() => { });
+    }
+    private void UpdatedSaveData()
+    {
+        string persistencePath = Path.GetDirectoryName(dataFilePath) ?? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        Persistence.SaveData(persistencePath, "hsnw_nodes.json", _dataIndex.Nodes);
+        Persistence.SaveData(persistencePath, "documents.json", _documents);
     }
 
 }

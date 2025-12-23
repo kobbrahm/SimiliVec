@@ -9,4 +9,5 @@ public interface IVectorService
     Task IndexDocument();
     Task<IEnumerable<DocumentModel>> Search(string query, int k = 5);
     IEnumerable<DocumentModel> GetAllDocuments();
+    Task<Action> ExitProgram();
 }

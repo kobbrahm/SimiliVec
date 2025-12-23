@@ -38,4 +38,11 @@ public class VectorController : ControllerBase
         var results = await _vectorService.Search(query, k);
         return Ok(results);
     }
+    
+    [HttpPost("exit")]
+    public async Task<IActionResult> Exit()
+    {
+        await _vectorService.ExitProgram();
+        return Ok("Program exiting...");
+    }
 }

@@ -18,6 +18,7 @@ public class DataIndex : IDataIndex
     public int EfConstruction { get; init; } //size of candidate list during construction
     public float InverseLogM { get; init; } //Controls the probability of a node being assigned to higher levels
     
+    public DataIndex() {}
     /// <summary>
     /// Insert a new node into the HSNW index
     /// </summary>
